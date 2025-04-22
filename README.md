@@ -1,8 +1,9 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
-<H3>EX. NO.4</H3>
-<H3>DATE:</H3>
-<H1 ALIGN =CENTER> Implementation of Hidden Markov Model</H1>
+<h1 align =center>Implementation of Hidden Markov Model
+</h1>
+<H3> NAME: MANOJ KUMAR S</H3>
+<H3> REGISTER NUMBER: 212223240082</H3>
+<H3> EXPERIMENT NO: 04 </H3>
+<H3> DATE: 22.4.25</H3>
 
 ## Aim: 
 Construct a Python code to find the sequence of hidden states by the known sequence of observances using Hidden Markov Model. Consider two hidden states Sunny and Rainy with observable states,happy and sad.
@@ -21,10 +22,33 @@ Step 8:Calculate the probability of the observed sequence by summing the last ro
 Step 9:Find the most likely sequence of hidden states by selecting the hidden state with the highest probability at each time step based on the alpha matrix.<br>
 
 ## Program:
-Insert your Program here
+```py
+import numpy as np
+transition_matrix = np.array([[0.7, 0.3],[0.4, 0.6]])
+emission_matrix = np.array([[0.1, 0.9],[0.8,0.2]])
+initial_prob = np.array([0.5, 0.5])
+obs_seq = np.array([1,1,1,0,0,1])
+alpha = np.zeros((len(obs_seq),len(initial_prob)))
+alpha[0, :] = initial_prob * emission_matrix[:, obs_seq[0]]
+for t in range(1, len(obs_seq)):
+    for j in range(len(initial_prob)):
+
+        alpha[t, j] = emission_matrix[j,
+        obs_seq[t]]*np.sum(alpha[t-1,:] *
+        transition_matrix[:, j])
+probability = np.sum(alpha[-1, :])
+print("The prob of observed seq is:", probability)
+most_likely = []
+for t in range(len(obs_seq)):
+    if alpha[t, 0] > alpha[t,1]:
+        most_likely.append("sunny")
+    else:
+        most_likely.append("rainy")
+print("Most likely sequence of Weather state is:",most_likely)
+```
 
 ## Output:
-Show your results here
+![Result](image.png)
 
 ## Result:
 Thus Hidden Markov Model is implemented using python.
